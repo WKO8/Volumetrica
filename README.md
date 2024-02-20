@@ -5,9 +5,9 @@ Repositório do trabalho da disciplina de Laboratório de Desenvolvimento de Dis
 ## Alunos integrantes da equipe
 
 * Thiago Cedro Silva de Souza
-* Hanna Rodrigues Chaves
-* Angelo Marques
-* Pedro Cattoni
+* João Paulo de Castro Markiewicz
+* Lara Brígida Rezende Souza
+* Matheus Moreira Sorrentino
 
 ## Professores responsáveis
 
