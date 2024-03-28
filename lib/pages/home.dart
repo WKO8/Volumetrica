@@ -59,6 +59,7 @@ class HomePage extends StatelessWidget {
                     height: 40,
                     color: colorButton,
                     onPressed: () => {
+                      Navigator.pushNamed(context, '/signin')
                     },
                   );
                 })

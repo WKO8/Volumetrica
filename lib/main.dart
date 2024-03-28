@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:volumetrica/pages/home.dart';
-import 'package:volumetrica/pages/settings.dart';
+import 'package:volumetrica/pages/about.dart';
+import 'package:volumetrica/pages/signin.dart';
+import 'package:volumetrica/pages/signup.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,7 +25,9 @@ class MyApp extends StatelessWidget {
       home: HomePage(),
       routes: {
         '/home': (context) => HomePage(),
-        '/settings': (context) => SettingsPage(),
+        '/about': (context) => AboutPage(),
+        '/signin': (context) => SignIn(),
+        '/signup': (context) => SignUp(),
       },
     );
   }

@@ -2,7 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:volumetrica/widgets/CustomButton.dart';
 
 class CustomSideMenu extends StatefulWidget {
@@ -13,6 +12,8 @@ class CustomSideMenu extends StatefulWidget {
 }
 
 class _CustomSideMenuState extends State<CustomSideMenu> {
+  final ValueNotifier<int> _selectedIndexNotifier = ValueNotifier<int>(0); // Initialize the selected index to 0 (or any default index)
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -59,83 +60,48 @@ class _CustomSideMenuState extends State<CustomSideMenu> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(top: 100.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          // home page list tile
-                          ListTile(
-                            leading: Icon(
-                              CupertinoIcons.cube_fill,
-                              color: Color(0xFF448AB5),
-                              size: 30,
-                            ),
-                            title: Text(
-                              "Volume",
-                              style: TextStyle(
-                                color: Color(0xFF448AB5),
-                                fontSize: 20
+                      child: ValueListenableBuilder<int>(
+                        valueListenable: _selectedIndexNotifier,
+                        builder: (context, selectedIndex, child) {
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              // home page list tile
+                              _buildListTile(
+                                icon: CupertinoIcons.cube_fill,
+                                text: "Volume",
+                                index: 0,
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  Navigator.pushNamed(context, '/home');
+                                },
                               ),
-                            ),
-                            onTap: () {
-                              // pop drawer first
-                              Navigator.pop(context);
-                                        
-                              // go to home page
-                              Navigator.pushNamed(context, '/home');
-                            },
-                          ),
-                          
-                          SizedBox(height: 20),
-                          
-                          // history page list tile
-                          ListTile(
-                            leading: Icon(
-                              Icons.history,
-                              size: 30,
-                              color: Colors.white,
-                            ),
-                            title: Text(
-                              "Histórico",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20
+                              SizedBox(height: 20),
+                              // history page list tile
+                              _buildListTile(
+                                icon: Icons.history,
+                                text: "Histórico",
+                                index: 1,
+                                onTap: () {
+                                  // Navigator.pop(context);
+                                  // Navigator.pushNamed(context, '/home'); // Assuming you want to navigate to the home page with history opened
+                                },
                               ),
-                            ),
-                            onTap: () {
-                              // pop drawer first
-                              Navigator.pop(context);
-                                        
-                              // go to settings page
-                              Navigator.pushNamed(context, '/settings');
-                            },
-                          ),
-                          
-                          SizedBox(height: 20),
-                          
-                          // about page list tile
-                          ListTile(
-                            leading: Icon(
-                              Icons.info_outline,
-                              size: 30,
-                              color: Colors.white,
-                            ),
-                            title: Text(
-                              "Sobre",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20
+                              SizedBox(height: 20),
+                              // about page list tile
+                              _buildListTile(
+                                icon: Icons.info_outline,
+                                text: "Sobre",
+                                index: 2,
+                                onTap: () {
+                                  // Navigator.pop(context);
+                                  // Navigator.pushNamed(context, '/about');
+                                },
                               ),
-                            ),
-                            onTap: () {
-                              // pop drawer first
-                              Navigator.pop(context);
-                                        
-                              // go to settings page
-                              Navigator.pushNamed(context, '/settings');
-                            },
-                          )
-                        ]
+                            ]
+                          );
+                        },
                       ),
                     ),
                   ),
@@ -145,6 +111,27 @@ class _CustomSideMenuState extends State<CustomSideMenu> {
           ),
         ],
       )
+    );
+  }
+
+  Widget _buildListTile({required IconData icon, Color? color, required String text, required int index, required VoidCallback onTap}) {
+    return ListTile(
+      leading: Icon(
+        icon,
+        size: 30,
+        color: _selectedIndexNotifier.value == index ? Color(0xFF448AB5) : Colors.white,
+      ),
+      title: Text(
+        text,
+        style: TextStyle(
+          color: _selectedIndexNotifier.value == index ? Color(0xFF448AB5) : Colors.white,
+          fontSize: 20
+        ),
+      ),
+      onTap: () {
+        _selectedIndexNotifier.value = index; // Update the selected index without setState
+        onTap();
+      },
     );
   }
 }
