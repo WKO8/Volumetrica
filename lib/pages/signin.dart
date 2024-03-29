@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:volumetrica/widgets/custom_button.dart';
+import 'package:volumetrica/widgets/custom_text_field.dart';
 
 class SignIn extends StatelessWidget {
  const SignIn({super.key});
@@ -61,46 +63,38 @@ class SignIn extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 20, right: 20, top: 55),
                 child: Column(
                   children: [   
-                    const TextField(
-                      decoration: InputDecoration(
-                        labelText: 'Email',
-                        labelStyle: TextStyle(
-                          color: Color(0xFF448AB5),
-                          fontSize: 18
-                        ),
-                        fillColor: Colors.white,
-                        filled: true,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(50)),
-                          borderSide: BorderSide.none
-                        ), // Remove a borda do TextField para evitar conflitos
-                        contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15), // Adiciona padding interno
-                        suffixIcon: Icon(
-                          CupertinoIcons.mail_solid,
-                          color: Color(0xFF448AB5),
-                        )
+                    const CustomTextField(
+                      text: 'Email',
+                      textStyle: TextStyle(
+                        color: Color(0xFF448AB5),
+                        fontSize: 18
                       ),
+                      backgroundColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(50)),
+                        borderSide: BorderSide.none
+                      ),
+                      icon: Icon(
+                        CupertinoIcons.mail_solid,
+                        color: Color(0xFF448AB5),
+                      )
                     ),
                     const SizedBox(height: 20),
-                    const TextField(
-                      decoration: InputDecoration(
-                        labelText: 'Senha',
-                        labelStyle: TextStyle(
-                          color: Color(0xFF448AB5),
-                          fontSize: 18
-                        ),
-                        fillColor: Colors.white,
-                        filled: true,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(50)),
-                          borderSide: BorderSide.none
-                        ), // Remove a borda do TextField para evitar conflitos
-                        contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15), // Adiciona padding interno
-                        suffixIcon: Icon(
-                          CupertinoIcons.eye_fill,
-                          color: Color(0xFF448AB5),
-                        )
+                    const CustomTextField(
+                      text: 'Senha',
+                      textStyle: TextStyle(
+                        color: Color(0xFF448AB5),
+                        fontSize: 18
                       ),
+                      backgroundColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(50)),
+                        borderSide: BorderSide.none
+                      ),
+                      icon: Icon(
+                        CupertinoIcons.eye_fill,
+                        color: Color(0xFF448AB5),
+                      )
                     ),
                     const SizedBox(height: 5),
                     TextButton(
@@ -118,30 +112,26 @@ class SignIn extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    TextButton(
-                      onPressed: () {
-                        // Implemente a lógica para login aqui
-                        Navigator.pushNamed(context, '/home');
-                      },
-                      child: Container(
-                        height: 50,
-                        width: 1000,
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(50))
-                        ),
-                        child: const Center(
-                          child: Text(
-                              'Entrar',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.blue, 
-                                fontSize: 18
-                              ),
+                    Builder(builder: (BuildContext context) {
+                      return CustomButton(
+                        scaffoldContext: context,
+                        content: const Text(
+                          'Entrar',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue, 
+                            fontSize: 18
                           ),
                         ),
-                      ),
-                    ),
+                        borderRadius: BorderRadius.circular(50),
+                        width: 400,
+                        height: 50,
+                        color: Colors.white,
+                        onPressed: () => {
+                          Navigator.pushNamed(context, '/home')
+                        },
+                      );
+                    }),
                     TextButton(
                       onPressed: () {
                         Navigator.pushNamed(context, '/signup');
