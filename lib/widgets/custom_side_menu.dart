@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:volumetrica/widgets/CustomButton.dart';
+import 'package:volumetrica/widgets/custom_button.dart';
 
 class CustomSideMenu extends StatefulWidget {
   const CustomSideMenu({super.key});
@@ -95,8 +95,8 @@ class _CustomSideMenuState extends State<CustomSideMenu> {
                                 text: "Sobre",
                                 index: 2,
                                 onTap: () {
-                                  // Navigator.pop(context);
-                                  // Navigator.pushNamed(context, '/about');
+                                  Navigator.pop(context);
+                                  Navigator.pushNamed(context, '/about');
                                 },
                               ),
                             ]
@@ -114,7 +114,7 @@ class _CustomSideMenuState extends State<CustomSideMenu> {
     );
   }
 
-  Widget _buildListTile({required IconData icon, Color? color, required String text, required int index, required VoidCallback onTap}) {
+  Widget _buildListTile({required IconData icon, required String text, required int index, required VoidCallback onTap}) {
     return ListTile(
       leading: Icon(
         icon,

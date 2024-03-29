@@ -2,9 +2,9 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:volumetrica/widgets/CustomButton.dart';
-import 'package:volumetrica/widgets/CustomBottomNavigationBar.dart';
-import 'package:volumetrica/widgets/CustomSideMenu.dart';
+import 'package:volumetrica/widgets/custom_button.dart';
+import 'package:volumetrica/widgets/custom_bottom_navigation_bar.dart';
+import 'package:volumetrica/widgets/custom_side_menu.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
