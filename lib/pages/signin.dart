@@ -99,7 +99,7 @@ class SignIn extends StatelessWidget {
                     const SizedBox(height: 5),
                     TextButton(
                       onPressed: () {
-                        // Implemente a lógica para recuperação de senha aqui
+                        Navigator.pushNamed(context, '/recovery');
                       },
                       child: const Text(
                         'Esqueci minha senha',

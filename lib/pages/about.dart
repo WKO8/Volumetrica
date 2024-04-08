@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:volumetrica/widgets/custom_button.dart';
 import 'package:volumetrica/widgets/custom_developer_info.dart';
 
@@ -55,27 +56,29 @@ class AboutPage extends StatelessWidget {
               child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                       CupertinoIcons.cube_fill,
-                       color: colorLogo,
-                       size: 45,
-                      ),
-                      Text(
-                       'Volumetrica',
-                       style: TextStyle(
-                          color: colorLogo,
-                          fontFamily: 'Inter',
-                          fontSize: 36,
-                          fontWeight: FontWeight.bold
-                       ),
-                      ),
-                    ],
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(
+                         CupertinoIcons.cube_fill,
+                         color: colorLogo,
+                         size: 45,
+                        ),
+                        Text(
+                         'Volumetrica',
+                         style: TextStyle(
+                            color: colorLogo,
+                            fontFamily: 'Inter',
+                            fontSize: 36,
+                            fontWeight: FontWeight.bold
+                         ),
+                        ),
+                      ],
+                    ),
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: 18),
                   SizedBox(
                     height: 250,
                     width: 350,
@@ -89,7 +92,7 @@ class AboutPage extends StatelessWidget {
                       ),
                     )
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: 20),
                   SizedBox(
                     child: Column(
                       children: [
@@ -132,7 +135,7 @@ class AboutPage extends StatelessWidget {
                           responsibility: '(Back-end)',
                           textColor: colorLogo,
                         ),
-                        
+                        SizedBox(height: 10),
                       ],
                     ),
                   )
