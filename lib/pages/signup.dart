@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:volumetrica/others/database_manager.dart';
 import 'package:volumetrica/widgets/custom_button.dart';
-import 'package:volumetrica/widgets/custom_text_field.dart';
+// import 'package:volumetrica/widgets/custom_text_field.dart';
 
 class SignUp extends StatelessWidget {
   const SignUp({super.key});
@@ -66,53 +66,108 @@ class SignUp extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 20, right: 20, top: 55),
                   child: Column(
                     children: [
-                      CustomTextField(
-                        text: 'Email',
-                        editingController: emailController,
-                        textStyle: const TextStyle(
-                          color: Color(0xFF448AB5),
-                          fontSize: 18,
-                        ),
-                        backgroundColor: Colors.white,
-                        border: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(50)),
-                          borderSide: BorderSide.none,
-                        ),
-                        icon: const Icon(
-                          CupertinoIcons.mail_solid,
-                          color: Color(0xFF448AB5),
+                      // CustomTextField(
+                      //   text: 'Email',
+                      //   editingController: emailController,
+                      //   textStyle: const TextStyle(
+                      //     color: Color(0xFF448AB5),
+                      //     fontSize: 18,
+                      //   ),
+                      //   backgroundColor: Colors.white,
+                      //   border: const OutlineInputBorder(
+                      //     borderRadius: BorderRadius.all(Radius.circular(50)),
+                      //     borderSide: BorderSide.none,
+                      //   ),
+                      //   icon: const Icon(
+                      //     CupertinoIcons.mail_solid,
+                      //     color: Color(0xFF448AB5),
+                      //   ),
+                      // ),
+                      TextField(
+                        controller: emailController,
+                        decoration: InputDecoration(
+                          labelText: 'Email',
+                          labelStyle: const TextStyle(color: Color(0xFF448AB5)), // Define a cor do rótulo para branco
+                          hintStyle: const TextStyle(color: Colors.white), // Define a cor do texto de dica para branco
+                          fillColor: Colors.white, // Define a cor de fundo do TextField para branco
+                          filled: true, // Define para preencher o TextField com a cor de fundo
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.white), // Define a cor da borda quando o TextField está habilitado
+                            borderRadius: BorderRadius.circular(10), // Define a borda circular
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.white), // Define a cor da borda quando o TextField está em foco
+                            borderRadius: BorderRadius.circular(10), // Define a borda circular
+                          ),
                         ),
                       ),
                       const SizedBox(height: 20),
-                      CustomTextField(
-                        text: 'Senha',
-                        editingController: passwordController,
-                        textStyle: const TextStyle(
-                          color: Color(0xFF448AB5),
-                          fontSize: 18,
+                      TextField(
+                        controller: passwordController,
+                        decoration: InputDecoration(
+                          labelText: 'Senha',
+                          labelStyle: const TextStyle(color: Color(0xFF448AB5)), // Define a cor do rótulo para branco
+                          hintStyle: const TextStyle(color: Colors.white), // Define a cor do texto de dica para branco
+                          fillColor: Colors.white, // Define a cor de fundo do TextField para branco
+                          filled: true, // Define para preencher o TextField com a cor de fundo
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.white), // Define a cor da borda quando o TextField está habilitado
+                            borderRadius: BorderRadius.circular(10), // Define a borda circular
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.white), // Define a cor da borda quando o TextField está em foco
+                            borderRadius: BorderRadius.circular(10), // Define a borda circular
+                          ),
                         ),
-                        backgroundColor: Colors.white,
-                        border: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(50)),
-                          borderSide: BorderSide.none,
-                        ),
-                        icon: const Icon(
-                          CupertinoIcons.eye_fill,
-                          color: Color(0xFF448AB5),
-                        ),
+                        obscureText: true,
                       ),
+                      // CustomTextField(
+                      //   text: 'Senha',
+                      //   editingController: passwordController,
+                      //   textStyle: const TextStyle(
+                      //     color: Color(0xFF448AB5),
+                      //     fontSize: 18,
+                      //   ),
+                      //   backgroundColor: Colors.white,
+                      //   border: const OutlineInputBorder(
+                      //     borderRadius: BorderRadius.all(Radius.circular(50)),
+                      //     borderSide: BorderSide.none,
+                      //   ),
+                      //   icon: const Icon(
+                      //     CupertinoIcons.eye_fill,
+                      //     color: Color(0xFF448AB5),
+                      //   ),
+                      // ),
                       const SizedBox(height: 20),
-                      const CustomTextField(
-                        text: 'Repetir senha',
-                        textStyle: TextStyle(
-                          color: Color(0xFF448AB5),
-                          fontSize: 18,
+                      // const CustomTextField(
+                      //   text: 'Repetir senha',
+                      //   textStyle: TextStyle(
+                      //     color: Color(0xFF448AB5),
+                      //     fontSize: 18,
+                      //   ),
+                      //   backgroundColor: Colors.white,
+                      //   border: OutlineInputBorder(
+                      //     borderRadius: BorderRadius.all(Radius.circular(50)),
+                      //     borderSide: BorderSide.none,
+                      //   ),
+                      // ),
+                      TextField(
+                        decoration: InputDecoration(
+                          labelText: 'Confirme sua Senha',
+                          labelStyle: const TextStyle(color: Color(0xFF448AB5)), // Define a cor do rótulo para branco
+                          hintStyle: const TextStyle(color: Colors.white), // Define a cor do texto de dica para branco
+                          fillColor: Colors.white, // Define a cor de fundo do TextField para branco
+                          filled: true, // Define para preencher o TextField com a cor de fundo
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.white), // Define a cor da borda quando o TextField está habilitado
+                            borderRadius: BorderRadius.circular(10), // Define a borda circular
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.white), // Define a cor da borda quando o TextField está em foco
+                            borderRadius: BorderRadius.circular(10), // Define a borda circular
+                          ),
                         ),
-                        backgroundColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(50)),
-                          borderSide: BorderSide.none,
-                        ),
+                        obscureText: true,
                       ),
                       const SizedBox(height: 60),
                       Consumer<DatabaseManager>(
@@ -133,7 +188,7 @@ class SignUp extends StatelessWidget {
                             color: Colors.white,
                             onPressed: () async {
                               // Verificar se os campos de texto estão preenchidos
-                              if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
+                              // if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
                                 // Salvar dados do novo usuário
                                 await Provider.of<DatabaseManager>(context, listen: false)
                                     .saveData(emailController.text, passwordController.text);
@@ -141,14 +196,14 @@ class SignUp extends StatelessWidget {
                                 emailController.clear();
                                 passwordController.clear();
                                 Navigator.pushNamed(context, '/signin');
-                              } else {
-                                // Exibir mensagem de erro se os campos estiverem vazios
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Por favor, preencha todos os campos.'),
-                                  ),
-                                );
-                              }
+                              // } else {
+                              //   // Exibir mensagem de erro se os campos estiverem vazios
+                              //   ScaffoldMessenger.of(context).showSnackBar(
+                              //     const SnackBar(
+                              //       content: Text('Por favor, preencha todos os campos.'),
+                              //     ),
+                              //   );
+                              // }
                             },
                           );
                         },

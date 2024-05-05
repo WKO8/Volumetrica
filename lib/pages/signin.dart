@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:volumetrica/others/auth_shared_preference.dart';
 import 'package:volumetrica/others/database.dart';
 import 'package:volumetrica/widgets/custom_button.dart';
-import 'package:volumetrica/widgets/custom_text_field.dart';
+// import 'package:volumetrica/widgets/custom_text_field.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({Key? key});
@@ -90,38 +90,75 @@ class SignIn extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 20, right: 20, top: 55),
                 child: Column(
                   children: [   
-                    const CustomTextField(
-                      text: 'Email',
-                      textStyle: TextStyle(
-                        color: Color(0xFF448AB5),
-                        fontSize: 18
-                      ),
-                      backgroundColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
-                        borderSide: BorderSide.none
-                      ),
-                      icon: Icon(
-                        CupertinoIcons.mail_solid,
-                        color: Color(0xFF448AB5),
-                      )
+                    // const CustomTextField(
+                    //   text: 'Email',
+                    //   textStyle: TextStyle(
+                    //     color: Color(0xFF448AB5),
+                    //     fontSize: 18
+                    //   ),
+                    //   backgroundColor: Colors.white,
+                    //   border: OutlineInputBorder(
+                    //     borderRadius: BorderRadius.all(Radius.circular(50)),
+                    //     borderSide: BorderSide.none
+                    //   ),
+                    //   icon: Icon(
+                    //     CupertinoIcons.mail_solid,
+                    //     color: Color(0xFF448AB5),
+                    //   )
+                    // ),
+                    TextField(
+                        controller: emailController,
+                        decoration: InputDecoration(
+                          labelText: 'Email',
+                          labelStyle: const TextStyle(color: Color(0xFF448AB5)), // Define a cor do rótulo para branco
+                          hintStyle: const TextStyle(color: Colors.white), // Define a cor do texto de dica para branco
+                          fillColor: Colors.white, // Define a cor de fundo do TextField para branco
+                          filled: true, // Define para preencher o TextField com a cor de fundo
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.white), // Define a cor da borda quando o TextField está habilitado
+                            borderRadius: BorderRadius.circular(10), // Define a borda circular
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.white), // Define a cor da borda quando o TextField está em foco
+                            borderRadius: BorderRadius.circular(10), // Define a borda circular
+                          ),
+                        ),
                     ),
                     const SizedBox(height: 20),
-                    const CustomTextField(
-                      text: 'Senha',
-                      textStyle: TextStyle(
-                        color: Color(0xFF448AB5),
-                        fontSize: 18
-                      ),
-                      backgroundColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
-                        borderSide: BorderSide.none
-                      ),
-                      icon: Icon(
-                        CupertinoIcons.eye_fill,
-                        color: Color(0xFF448AB5),
-                      )
+                    // const CustomTextField(
+                    //   text: 'Senha',
+                    //   textStyle: TextStyle(
+                    //     color: Color(0xFF448AB5),
+                    //     fontSize: 18
+                    //   ),
+                    //   backgroundColor: Colors.white,
+                    //   border: OutlineInputBorder(
+                    //     borderRadius: BorderRadius.all(Radius.circular(50)),
+                    //     borderSide: BorderSide.none
+                    //   ),
+                    //   icon: Icon(
+                    //     CupertinoIcons.eye_fill,
+                    //     color: Color(0xFF448AB5),
+                    //   )
+                    // ),
+                    TextField(
+                      controller: passwordController,
+                      decoration: InputDecoration(
+                          labelText: 'Senha',
+                          labelStyle: const TextStyle(color: Color(0xFF448AB5)), // Define a cor do rótulo para branco
+                          hintStyle: const TextStyle(color: Colors.white), // Define a cor do texto de dica para branco
+                          fillColor: Colors.white, // Define a cor de fundo do TextField para branco
+                          filled: true, // Define para preencher o TextField com a cor de fundo
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.white), // Define a cor da borda quando o TextField está habilitado
+                            borderRadius: BorderRadius.circular(10), // Define a borda circular
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.white), // Define a cor da borda quando o TextField está em foco
+                            borderRadius: BorderRadius.circular(10), // Define a borda circular
+                          ),
+                        ),
+                      obscureText: true,
                     ),
                     const SizedBox(height: 5),
                     TextButton(
