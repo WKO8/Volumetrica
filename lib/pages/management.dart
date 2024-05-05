@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:volumetrica/others/database_manager.dart';
 
 class UsersManagementPage extends StatelessWidget {
-  const UsersManagementPage({Key? key}) : super(key: key);
+  const UsersManagementPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -86,13 +86,13 @@ class UsersManagementPage extends StatelessWidget {
 }
 
 class AddUserForm extends StatefulWidget {
-  const AddUserForm({Key? key}) : super(key: key);
+  const AddUserForm({super.key});
 
   @override
-  _AddUserFormState createState() => _AddUserFormState();
+  AddUserFormState createState() => AddUserFormState();
 }
 
-class _AddUserFormState extends State<AddUserForm> {
+class AddUserFormState extends State<AddUserForm> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -173,7 +173,7 @@ class _AddUserFormState extends State<AddUserForm> {
 class UserTile extends StatelessWidget {
   final Map<String, dynamic> user;
 
-  const UserTile({Key? key, required this.user}) : super(key: key);
+  const UserTile({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -283,16 +283,16 @@ class EditUserDialog extends StatefulWidget {
   final String currentPassword;
 
   const EditUserDialog({
-    Key? key,
+    super.key,
     required this.currentEmail,
     required this.currentPassword,
-  }) : super(key: key);
+  });
 
   @override
-  _EditUserDialogState createState() => _EditUserDialogState();
+  EditUserDialogState createState() => EditUserDialogState();
 }
 
-class _EditUserDialogState extends State<EditUserDialog> {
+class EditUserDialogState extends State<EditUserDialog> {
   late final TextEditingController emailController;
   late final TextEditingController passwordController;
 

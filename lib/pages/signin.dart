@@ -6,14 +6,14 @@ import 'package:volumetrica/widgets/custom_button.dart';
 // import 'package:volumetrica/widgets/custom_text_field.dart';
 
 class SignIn extends StatelessWidget {
-  const SignIn({Key? key});
+  const SignIn({super.key});
 
   @override
   Widget build(BuildContext context) {
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
 
-    void _login() async {
+    void login() async {
       final email = emailController.text.trim();
       final password = passwordController.text.trim();
 
@@ -192,7 +192,7 @@ class SignIn extends StatelessWidget {
                         height: 50,
                         color: Colors.white,
                         onPressed: () => {
-                          _login()
+                          login()
                         },
                       );
                     }),

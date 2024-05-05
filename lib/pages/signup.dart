@@ -188,7 +188,7 @@ class SignUp extends StatelessWidget {
                             color: Colors.white,
                             onPressed: () async {
                               // Verificar se os campos de texto estão preenchidos
-                              // if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
+                              if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
                                 // Salvar dados do novo usuário
                                 await Provider.of<DatabaseManager>(context, listen: false)
                                     .saveData(emailController.text, passwordController.text);
@@ -196,14 +196,14 @@ class SignUp extends StatelessWidget {
                                 emailController.clear();
                                 passwordController.clear();
                                 Navigator.pushNamed(context, '/signin');
-                              // } else {
-                              //   // Exibir mensagem de erro se os campos estiverem vazios
-                              //   ScaffoldMessenger.of(context).showSnackBar(
-                              //     const SnackBar(
-                              //       content: Text('Por favor, preencha todos os campos.'),
-                              //     ),
-                              //   );
-                              // }
+                              } else {
+                                // Exibir mensagem de erro se os campos estiverem vazios
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Por favor, preencha todos os campos.'),
+                                  ),
+                                );
+                              }
                             },
                           );
                         },

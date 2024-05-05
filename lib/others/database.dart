@@ -5,7 +5,7 @@ import 'package:path/path.dart';
 import 'package:crypto/crypto.dart';
 
 class Database extends StatelessWidget {
-  const Database({Key? key});
+  const Database({super.key});
 
   _getDatabase() async {
     final caminhoBancoDados = await getDatabasesPath();
@@ -40,8 +40,7 @@ class Database extends StatelessWidget {
     };
 
     await db.transaction((txn) async {
-      final id = await txn.insert("users", dadosUsuario);
-      print("Salvo: $id");
+      await txn.insert("users", dadosUsuario);
     });
   }
 
@@ -70,7 +69,7 @@ class Database extends StatelessWidget {
     return users;
   }
 
-  Future<void> listUniqueUser(int id) async{
+  Future<List<Map>> listUniqueUser(int id) async{
     final db = await _getDatabase();
     List<Map> users = await db.query(
       "users",
@@ -78,30 +77,28 @@ class Database extends StatelessWidget {
       where: "id = ?",
       whereArgs: [id]
     );
-    for(var usu in users){
-      print("id: ${usu['id']} email: ${usu['email']} password: ${usu['password']}");
-    }
+    return users;
   }
 
-  Future<void> excluirUsuario(int id) async{
+  Future<int> excluirUsuario(int id) async{
     final db = await _getDatabase();
     int retorno = await db.delete(
         "users",
         where: "id = ?",  //caracter curinga
         whereArgs: [id]
     );
-    print("Itens excluidos: $retorno");
+    return retorno;
   }
 
-  Future<void> deleteUser(String email) async{
+  Future<int> deleteUser(String email) async{
     final db = await _getDatabase();
     int retorno = await db.delete(
         "users",
         where: "email = ?",  //caracter curinga
         whereArgs: [email]
     );
-    print("Itens excluidos: $retorno");
-  }
+    return retorno;
+  } 
 
   Future<void> decrementIds(int deletedId) async {
     // Decrementar IDs dos usuários com ID maior que o ID excluído
@@ -109,11 +106,12 @@ class Database extends StatelessWidget {
     await db.rawUpdate('UPDATE users SET id = id - 1 WHERE id > ?', [deletedId]);
   }
 
-  Future<void> updateUser(int id, String email, String password) async {
+  Future<int> updateUser(int id, String email, String password) async {
     final db = await _getDatabase();
+    final encryptedPassword = _hashPassword(password);
     Map<String, dynamic> dadosUsuario = {
       "email": email,
-      "password": password,
+      "password": encryptedPassword,
     };
     int retorno = await db.update(
       "users",
@@ -121,7 +119,7 @@ class Database extends StatelessWidget {
       where: "id = ?", //caracter curinga
       whereArgs: [id],
     );
-    print("Itens atualizados: $retorno");
+    return retorno;
   }
 
 

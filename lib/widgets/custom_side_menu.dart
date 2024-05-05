@@ -4,7 +4,7 @@ import 'package:volumetrica/widgets/custom_button.dart';
 import 'package:volumetrica/others/auth_shared_preference.dart'; // Importe o arquivo de autenticação
 
 class CustomSideMenu extends StatefulWidget {
-  const CustomSideMenu({Key? key}) : super(key: key);
+  const CustomSideMenu({super.key});
 
   @override
   State<CustomSideMenu> createState() => _CustomSideMenuState();

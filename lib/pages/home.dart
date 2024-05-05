@@ -65,7 +65,6 @@ class HomePage extends StatelessWidget {
                       color: colorButton,
                       onPressed: () async {
                         final isLoggedIn = await AuthSharedPreferences.loadLoggedInState();
-                        print(isLoggedIn);
                         if (isLoggedIn) {
                           // Redirecionar para a tela de perfil se o usuário estiver logado
                           Navigator.pushNamed(context, '/profile');

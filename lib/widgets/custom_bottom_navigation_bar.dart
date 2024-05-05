@@ -13,7 +13,7 @@ class CustomBottomNavigationBar extends StatefulWidget {
   final VoidCallback? onPressed;
 
   const CustomBottomNavigationBar({
-    Key? key,
+    super.key,
     required this.firstIcon,
     required this.secondIcon,
     this.firstText = const Text(""),
@@ -23,7 +23,7 @@ class CustomBottomNavigationBar extends StatefulWidget {
     this.borderRadius,
     this.mainAxisAlignment = MainAxisAlignment.spaceEvenly,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   State<CustomBottomNavigationBar> createState() =>
