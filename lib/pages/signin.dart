@@ -1,13 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:volumetrica/others/auth_shared_preference.dart';
+import 'package:volumetrica/others/database.dart';
 import 'package:volumetrica/widgets/custom_button.dart';
 import 'package:volumetrica/widgets/custom_text_field.dart';
 
 class SignIn extends StatelessWidget {
- const SignIn({super.key});
+  const SignIn({Key? key});
 
- @override
- Widget build(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
+
+    void _login() async {
+      final email = emailController.text.trim();
+      final password = passwordController.text.trim();
+
+      const database = Database();
+      final isValidUser = await database.validateUser(email, password);
+
+      if (isValidUser) {
+        // Login bem-sucedido, altere o estado de isLoggedIn para true
+        await AuthSharedPreferences.saveLoggedInState(true);
+        // Navegue para a próxima tela, por exemplo, a tela inicial
+        Navigator.pushNamed(context, '/home');
+      } else {
+        // Exibir mensagem de erro ou toast informando que o login falhou
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Email ou senha incorretos.'),
+          ),
+        );
+      }
+    }
+
   return Scaffold(
     body: SafeArea(
       child: Container(
@@ -128,7 +155,7 @@ class SignIn extends StatelessWidget {
                         height: 50,
                         color: Colors.white,
                         onPressed: () => {
-                          Navigator.pushNamed(context, '/home')
+                          _login()
                         },
                       );
                     }),

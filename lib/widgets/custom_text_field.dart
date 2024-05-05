@@ -5,15 +5,18 @@ class CustomTextField extends StatelessWidget {
   final TextStyle textStyle;
   final Color backgroundColor;
   final InputBorder border;
+  final TextEditingController? editingController;
   final Icon? icon;
+  
 
   const CustomTextField({
     required this.text,
     required this.textStyle, 
     required this.backgroundColor,
     required this.border,
+    this.editingController,
     this.icon,
-    super.key
+    super.key, 
   });
 
   @override

@@ -2,8 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:provider/provider.dart';
+import 'package:volumetrica/others/database_manager.dart';
 import 'package:volumetrica/pages/home.dart';
 import 'package:volumetrica/pages/about.dart';
+import 'package:volumetrica/pages/management.dart';
+import 'package:volumetrica/pages/profile.dart';
 import 'package:volumetrica/pages/recovery.dart';
 import 'package:volumetrica/pages/signin.dart';
 import 'package:volumetrica/pages/signup.dart';
@@ -11,7 +15,14 @@ import 'package:volumetrica/pages/signup.dart';
 void main() async {
  WidgetsFlutterBinding.ensureInitialized();
  final cameras = await availableCameras();
- runApp(MyApp(cameras: cameras));
+ runApp(
+  MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => DatabaseManager())
+    ],
+    child: MyApp(cameras: cameras),
+  ),
+ );
 }
 
 // ignore: must_be_immutable
@@ -31,10 +42,14 @@ class MyApp extends StatelessWidget {
       routes: {
         '/home': (context) => HomePage(cameras: cameras),
         '/about': (context) => AboutPage(),
+        '/profile': (context) => ProfilePage(),
         '/signin': (context) => SignIn(),
         '/signup': (context) => SignUp(),
         '/recovery': (context) => Recovery(),
+        '/management': (context) => UsersManagementPage(),
       },
     );
   }
+
+  
 }
