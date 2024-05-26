@@ -35,6 +35,7 @@ class HomePage extends StatelessWidget {
           appBar: AppBar(
             automaticallyImplyLeading: false,
             toolbarHeight: 150,
+             backgroundColor: Colors.transparent,
             flexibleSpace: Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),

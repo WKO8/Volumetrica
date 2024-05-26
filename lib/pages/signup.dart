@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:volumetrica/others/database_manager.dart';
+import 'package:volumetrica/services/authentication.dart';
 import 'package:volumetrica/widgets/custom_button.dart';
 // import 'package:volumetrica/widgets/custom_text_field.dart';
 
@@ -12,6 +13,8 @@ class SignUp extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
+
+    AuthService authService = AuthService();
 
     return Scaffold(
       body: SafeArea(
@@ -121,23 +124,6 @@ class SignUp extends StatelessWidget {
                         ),
                         obscureText: true,
                       ),
-                      // CustomTextField(
-                      //   text: 'Senha',
-                      //   editingController: passwordController,
-                      //   textStyle: const TextStyle(
-                      //     color: Color(0xFF448AB5),
-                      //     fontSize: 18,
-                      //   ),
-                      //   backgroundColor: Colors.white,
-                      //   border: const OutlineInputBorder(
-                      //     borderRadius: BorderRadius.all(Radius.circular(50)),
-                      //     borderSide: BorderSide.none,
-                      //   ),
-                      //   icon: const Icon(
-                      //     CupertinoIcons.eye_fill,
-                      //     color: Color(0xFF448AB5),
-                      //   ),
-                      // ),
                       const SizedBox(height: 20),
                       // const CustomTextField(
                       //   text: 'Repetir senha',
@@ -187,15 +173,33 @@ class SignUp extends StatelessWidget {
                             height: 50,
                             color: Colors.white,
                             onPressed: () async {
+
+                              String email = emailController.text;
+                              String password = passwordController.text;
+
                               // Verificar se os campos de texto estão preenchidos
-                              if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
-                                // Salvar dados do novo usuário
-                                await Provider.of<DatabaseManager>(context, listen: false)
-                                    .saveData(emailController.text, passwordController.text);
-                                // Limpar campos de texto
-                                emailController.clear();
-                                passwordController.clear();
-                                Navigator.pushNamed(context, '/signin');
+                              if (email.isNotEmpty && password.isNotEmpty) {
+                                if (password.length < 6) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Sua senha deve conter pelo menos 6 caracteres.'),
+                                    ),
+                                  );
+                                } else {
+                                  // Salvar dados do novo usuário
+                                  await Provider.of<DatabaseManager>(context, listen: false)
+                                      .saveData(email, password);
+                                  
+                                  // Salvar dados do novo usuário no Firebase
+                                  authService.registerUser(email: email, password: password);
+
+                                  // Limpar campos de texto
+                                  emailController.clear();
+                                  passwordController.clear();
+
+                                  // Redireciona para a tela de login
+                                  Navigator.pushNamed(context, '/signin');
+                                }
                               } else {
                                 // Exibir mensagem de erro se os campos estiverem vazios
                                 ScaffoldMessenger.of(context).showSnackBar(

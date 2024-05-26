@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:volumetrica/services/authentication.dart';
 import 'package:volumetrica/widgets/custom_button.dart';
 import 'package:volumetrica/others/auth_shared_preference.dart'; // Importe o arquivo de autenticação
 
@@ -14,7 +15,8 @@ class _CustomSideMenuState extends State<CustomSideMenu> {
   late bool isLoggedIn = false; // Adicionado estado para controlar o login
 
   final ValueNotifier<int> _selectedIndexNotifier = ValueNotifier<int>(0); // Initialize the selected index to 0 (or any default index)
-
+  final AuthService authService = AuthService();
+  
   @override
   void initState() {
     super.initState();
@@ -161,6 +163,7 @@ class _CustomSideMenuState extends State<CustomSideMenu> {
 
   Future<void> _logout(BuildContext context) async {
     await AuthSharedPreferences.saveLoggedInState(false); // Altera o estado de isLoggedIn para false
+    authService.signOut();
     setState(() {
       isLoggedIn = false;
     });

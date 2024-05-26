@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:volumetrica/others/database_manager.dart';
+import 'package:volumetrica/services/authentication.dart';
 
 class UsersManagementPage extends StatelessWidget {
   const UsersManagementPage({super.key});
@@ -96,6 +97,8 @@ class AddUserFormState extends State<AddUserForm> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  AuthService authService = AuthService();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -143,8 +146,15 @@ class AddUserFormState extends State<AddUserForm> {
         const SizedBox(height: 20),
         ElevatedButton(
           onPressed: () async {
+            String email = emailController.text;
+            String password = passwordController.text;
+            // Salvar dados do novo usuário no sqlite
             await Provider.of<DatabaseManager>(context, listen: false)
-                .saveData(emailController.text, passwordController.text);
+              .saveData(email, password);
+
+            // Salvar dados do novo usuário no Firebase
+            authService.registerUser(email: email, password: password);
+
             emailController.clear();
             passwordController.clear();
             await Provider.of<DatabaseManager>(context, listen: false)
@@ -173,7 +183,9 @@ class AddUserFormState extends State<AddUserForm> {
 class UserTile extends StatelessWidget {
   final Map<String, dynamic> user;
 
-  const UserTile({super.key, required this.user});
+  UserTile({super.key, required this.user});
+  
+  final AuthService authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -257,6 +269,7 @@ class UserTile extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: () async {
+                            // Deletar usuário no sqlite
                             Provider.of<DatabaseManager>(context, listen: false)
                                 .deleteUser(user['id']);
                             Navigator.of(context).pop();

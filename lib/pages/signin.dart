@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:volumetrica/others/auth_shared_preference.dart';
 import 'package:volumetrica/others/database.dart';
+import 'package:volumetrica/services/authentication.dart';
 import 'package:volumetrica/widgets/custom_button.dart';
 // import 'package:volumetrica/widgets/custom_text_field.dart';
 
@@ -13,12 +14,14 @@ class SignIn extends StatelessWidget {
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
 
+    final AuthService authService = AuthService();
+
     void login() async {
       final email = emailController.text.trim();
       final password = passwordController.text.trim();
 
       const database = Database();
-      final isValidUser = await database.validateUser(email, password);
+      final isValidUser = await database.validateUser(email, password) && await authService.signIn(email: email, password: password);
 
       if (isValidUser) {
         // Login bem-sucedido, altere o estado de isLoggedIn para true
@@ -244,5 +247,8 @@ class SignIn extends StatelessWidget {
       ),
     ),
   );
+
+
+  
  }
 }

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:volumetrica/others/auth_shared_preference.dart';
 import 'package:volumetrica/others/database_manager.dart';
+import 'package:volumetrica/services/authentication.dart';
 import 'package:volumetrica/widgets/custom_button.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+  ProfilePage({super.key});
+
+  final AuthService authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -14,19 +18,37 @@ class ProfilePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 30, top: 65), // Espaçamento para posicionar o botão na parte superior esquerda
-            child: CustomButton(
-              scaffoldContext: context,
-              content: const Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              ),
-              width: 60,
-              height: 40,
-              borderRadius: BorderRadius.circular(15),
-              color: const Color(0xFF448AB5),
-              onPressed: () => Navigator.pop(context),
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 65),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CustomButton(
+                scaffoldContext: context,
+                content: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                ),
+                width: 60,
+                height: 40,
+                borderRadius: BorderRadius.circular(15),
+                color: const Color(0xFF448AB5),
+                onPressed: () => Navigator.pop(context),
+                ),
+                CustomButton(
+                    scaffoldContext: context,
+                    content: const Icon(
+                      Icons.person,
+                      color: Colors.white,
+                    ),
+                    borderRadius: BorderRadius.circular(15),
+                    width: 60,
+                    height: 40,
+                    color: Colors.red,
+                    onPressed: () async {
+                      _confirmLogout(context); // Chamando a função para confirmar o logout
+                    },
+                )
+              ]),
           ),
           Expanded(
             child: Center(
@@ -85,25 +107,14 @@ class ProfilePage extends StatelessWidget {
                           ),
                         ),
                       ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        _confirmLogout(context); // Chamando a função para confirmar o logout
-                      },
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white, 
-                        backgroundColor: Colors.red,
-                      ),
-                      child: const Text('Logout'),
-                    ),
+                    )
                   ],
                 ),
               ),
             ),
           ),
-        ],
-      ),
-    );
+        ]),
+      );
   }
 
   Future<Map<String, dynamic>> _getUserData() async {
@@ -119,6 +130,8 @@ class ProfilePage extends StatelessWidget {
 
   Future<void> _logout(BuildContext context) async {
     await AuthSharedPreferences.saveLoggedInState(false);
+    authService.signOut();
+
     Navigator.pushNamed(context, '/home');
   }
 
