@@ -11,22 +11,20 @@ import 'package:volumetrica/pages/recovery.dart';
 import 'package:volumetrica/pages/signin.dart';
 import 'package:volumetrica/pages/signup.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:volumetrica/widgets/camera_provider.dart';
 import 'firebase_options.dart';
 
 void main() async {
- WidgetsFlutterBinding.ensureInitialized();
- final cameras = await availableCameras();
- await Firebase.initializeApp(
-  options: DefaultFirebaseOptions.currentPlatform,
-);
- runApp(
-  MultiProvider(
+  WidgetsFlutterBinding.ensureInitialized();
+  final cameras = await availableCameras();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (_) => DatabaseManager())
+      ChangeNotifierProvider(create: (_) => DatabaseManager()),
+      ChangeNotifierProvider(create: (_) => CameraProvider(cameras)),
     ],
     child: MyApp(cameras: cameras),
-  ),
- );
+  ));
 }
 
 // ignore: must_be_immutable
@@ -40,20 +38,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomePage(cameras: cameras),
-      routes: {
-        '/home': (context) => HomePage(cameras: cameras),
-        '/about': (context) => AboutPage(),
-        '/profile': (context) => ProfilePage(),
-        '/signin': (context) => SignIn(),
-        '/signup': (context) => SignUp(),
-        '/recovery': (context) => Recovery(),
-        '/management': (context) => UsersManagementPage(),
+    return Consumer<CameraProvider>(
+      builder: (context, cameraProvider, child) {
+        cameraProvider.initialize(); // Chamando initialize
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: HomePage(cameras: cameras),
+          routes: {
+            '/home': (context) => HomePage(cameras: cameras),
+            '/about': (context) => AboutPage(),
+            '/profile': (context) => ProfilePage(),
+            '/signin': (context) => SignIn(),
+            '/signup': (context) => SignUp(),
+            '/recovery': (context) => Recovery(),
+            '/management': (context) => UsersManagementPage(),
+          },
+        );
       },
     );
   }
-
   
 }

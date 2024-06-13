@@ -5,19 +5,19 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final cameras = await availableCameras();
-  runApp(CameraApp( cameras: cameras));
+  runApp(CameraApp( cameras: cameras,));
 }
 
 /// CameraApp is the Main Application.
 class CameraApp extends StatefulWidget {
-  final List<CameraDescription> cameras;
+  final List<CameraDescription> cameras; // Keep this parameter
+  
   /// Default Constructor
-  const CameraApp({super.key, required this.cameras});
+  const CameraApp({super.key, required this.cameras}); // Removed the controller parameter
 
   @override
   State<CameraApp> createState() => _CameraAppState();
 }
-
 class _CameraAppState extends State<CameraApp> {
   late CameraController controller;
 

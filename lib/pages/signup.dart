@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:volumetrica/others/database_manager.dart';
 import 'package:volumetrica/services/authentication.dart';
 import 'package:volumetrica/widgets/custom_button.dart';
-// import 'package:volumetrica/widgets/custom_text_field.dart';
 
 class SignUp extends StatelessWidget {
   const SignUp({super.key});
