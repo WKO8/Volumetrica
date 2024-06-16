@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
-import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:volumetrica/others/database_manager.dart';
 import 'package:volumetrica/pages/home.dart';
@@ -11,51 +11,41 @@ import 'package:volumetrica/pages/recovery.dart';
 import 'package:volumetrica/pages/signin.dart';
 import 'package:volumetrica/pages/signup.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:volumetrica/widgets/camera_provider.dart';
 import 'firebase_options.dart';
 
-void main() async {
+List<CameraDescription> cameras = [];
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final cameras = await availableCameras();
+  cameras = await availableCameras(); // Garanta que as câmeras estejam disponíveis
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => DatabaseManager()),
-      ChangeNotifierProvider(create: (_) => CameraProvider(cameras)),
     ],
-    child: MyApp(cameras: cameras),
+    child: MyApp()
   ));
 }
 
+
 // ignore: must_be_immutable
 class MyApp extends StatelessWidget {
-  final List<CameraDescription> cameras;
-  const MyApp({super.key, required this.cameras});
-
-  // functions & methods
-  void userTapped() {
-  }
+  const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Consumer<CameraProvider>(
-      builder: (context, cameraProvider, child) {
-        cameraProvider.initialize(); // Chamando initialize
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: HomePage(cameras: cameras),
-          routes: {
-            '/home': (context) => HomePage(cameras: cameras),
-            '/about': (context) => AboutPage(),
-            '/profile': (context) => ProfilePage(),
-            '/signin': (context) => SignIn(),
-            '/signup': (context) => SignUp(),
-            '/recovery': (context) => Recovery(),
-            '/management': (context) => UsersManagementPage(),
-          },
-        );
+  Widget build(BuildContext context) { // Chamando initialize
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: HomePage(cameras: cameras),
+      routes: {
+        '/home': (context) => HomePage(cameras: cameras),
+        '/about': (context) => AboutPage(),
+        '/profile': (context) => ProfilePage(),
+        '/signin': (context) => SignIn(),
+        '/signup': (context) => SignUp(),
+        '/recovery': (context) => Recovery(),
+        '/management': (context) => UsersManagementPage(),
       },
     );
   }
-  
 }
