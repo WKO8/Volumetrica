@@ -56,51 +56,50 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _takePicture() async {
-  try {
-    final XFile imageFile = await _controller.takePicture();
-    setState(() {
-      _capturedPhoto = imageFile;
-      _showCapturedPhoto = true;
-      _isLoading = true;
-      _isPhotoShown = true; // Inicia o carregamento
-    });
+    try {
+      final XFile? imageFile = await _controller.takePicture();
+      if (imageFile!= null) {
+        setState(() {
+          _capturedPhoto = imageFile;
+          _showCapturedPhoto = true;
+          _isLoading = true;
+          _isPhotoShown = true; // Inicia o carregamento
+          _imagePath = imageFile.path; // Define o caminho da imagem aqui, já que temos a referência
+        });
 
-    const String apiUrl = 'https://6c72-2804-1b3-6147-2020-8904-9fc3-57a7-23b8.ngrok-free.app/predict';
-
-    // Verifica se _imagePath não é null antes de prosseguir
-    if (_imagePath!= null) {
+        const String apiUrl = 'https://6c72-2804-1b3-6147-2020-8904-9fc3-57a7-23b8.ngrok-free.app/predict';
+        print(_imagePath);
         final request = http.MultipartRequest('POST', Uri.parse(apiUrl));
         request.files.add(await http.MultipartFile.fromPath('file', _imagePath!));
 
-          final response = await request.send();
-          if (response.statusCode == 200) {
-            final responseBody = await response.stream.transform(utf8.decoder).join();
-            final jsonResponse = jsonDecode(responseBody);
-            setState(() {
-              _imagePath = imageFile.path; // Atualiza _imagePath após a operação bem-sucedida
-              _prediction = jsonResponse['prediction'].toString();
-              _isLoading = false; // Finaliza o carregamento
-            });
-          } else {
-            print('Erro ao enviar a imagem: ${response.reasonPhrase}');
-            setState(() {
-              _isLoading = false; // Garante que o carregamento seja finalizado mesmo em caso de erro
-            });
-          }
-        } else {
-          print('Falha ao capturar a imagem ou obter o caminho da imagem.');
+        final response = await request.send();
+        if (response.statusCode == 200) {
+          final responseBody = await response.stream.transform(utf8.decoder).join();
+          final jsonResponse = jsonDecode(responseBody);
           setState(() {
-            _isLoading = false; // Garante que o carregamento seja finalizado em caso de falha na obtenção do caminho da imagem
+            _prediction = jsonResponse['prediction'].toString();
+            _isLoading = false; // Finaliza o carregamento
+          });
+        } else {
+          print('Erro ao enviar a imagem: ${response.reasonPhrase}');
+          setState(() {
+            _isLoading = false; // Garante que o carregamento seja finalizado mesmo em caso de erro
           });
         }
-      } catch (e) {
-        print(e);
+      } else {
+        print('Falha ao capturar a imagem ou obter o caminho da imagem.');
         setState(() {
-          _isLoading = false; // Garante que o carregamento seja finalizado em caso de exceção
+          _isLoading = false; // Garante que o carregamento seja finalizado em caso de falha na obtenção do caminho da imagem
         });
-        return;
       }
+    } catch (e) {
+      print(e);
+      setState(() {
+        _isLoading = false; // Garante que o carregamento seja finalizado em caso de exceção
+      });
+      return;
     }
+  }
 
   void _closePhotoAndShowCamera() {
     setState(() {
